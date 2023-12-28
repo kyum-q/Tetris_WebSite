@@ -51,12 +51,3 @@ function overGame() {
         alert("Game Over!!!!");
     }
 }
-
-function canDown() {
-    // 수정되어야 함.
-    // 현재는 맨 바닥인지만 체그해게 되어 있음
-    if(blockLoc >= 90)
-        return false;
-    else
-        return true;
-}
