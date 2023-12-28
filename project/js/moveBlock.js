@@ -45,28 +45,26 @@ function moveDown() {
 
 
 function canDown() {
-    // 수정되어야 함.
-    // 현재는 맨 바닥인지만 체그해게 되어 있음
-    if(blockLoc >= 90)
+    if(blockLoc >= 90 || checkBlock(blockLoc/10+1, blockLoc%10))
         return false;
     else
         return true;
 }
 
 function canRight() {
-    // 수정되어야 함.
-    // 현재는 맨 바닥인지만 체그해게 되어 있음
-    if(blockLoc%10 >= 9)
+    if(blockLoc%10 >= 9 || checkBlock(blockLoc/10, blockLoc%10+1))
         return false;
     else
         return true;
 }
 
 function canLeft() {
-    // 수정되어야 함.
-    // 현재는 맨 바닥인지만 체그해게 되어 있음
-    if(blockLoc%10 <= 0)
+    if(blockLoc%10 <= 0 || checkBlock(blockLoc/10, blockLoc%10-1))
         return false;
     else
         return true;
+}
+
+function checkBlock(x, y) {
+    return blockArray[Math.floor(x)][y] != null
 }
