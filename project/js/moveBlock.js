@@ -1,9 +1,19 @@
 
 window.onkeydown = function (e) {
-    if(e.key == "ArrowRight")
-        moveRight();
-    else if(e.key == "ArrowLeft")
-        moveLeft();
+    switch (e.key) {
+        case "ArrowRight":
+            moveRight();
+            break;
+        case "ArrowLeft":
+            moveLeft();
+            break;
+        case "Tab":
+            moveFloor();
+            break;
+    }
+
+    // 현재 이벤트의 기본 동작 중단
+    event.preventDefault();
 }
 
 function moveRight() {
@@ -25,7 +35,6 @@ function moveLeft() {
 }
 
 function moveDown() {
-
     // 수정되어야 함
     if(canDown()) {
         tds[blockLoc].style.backgroundColor = "white";
@@ -40,6 +49,13 @@ function moveDown() {
         blockArray[i][j] = new Block(i,j, "skyblue");
         blockArray[i][j].draw();
         startNew();
+    }
+}
+
+
+function moveFloor() {
+    while(canDown()) {
+        moveDown();
     }
 }
 
