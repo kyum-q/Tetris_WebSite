@@ -7,11 +7,21 @@ window.onkeydown = function (e) {
 }
 
 function moveRight() {
-    // 작성할 것
+    // 수정되어야 함
+    if(canRight()) {
+        tds[blockLoc].style.backgroundColor = "white";
+        blockLoc += 1;
+        tds[blockLoc].style.backgroundColor = "skyblue";
+    }
 }
 
 function moveLeft() {
-    // 작성할 것
+    // 수정되어야 함
+    if(canLeft()) {
+        tds[blockLoc].style.backgroundColor = "white";
+        blockLoc -= 1;
+        tds[blockLoc].style.backgroundColor = "skyblue";
+    }
 }
 
 function moveDown() {
@@ -38,6 +48,24 @@ function canDown() {
     // 수정되어야 함.
     // 현재는 맨 바닥인지만 체그해게 되어 있음
     if(blockLoc >= 90)
+        return false;
+    else
+        return true;
+}
+
+function canRight() {
+    // 수정되어야 함.
+    // 현재는 맨 바닥인지만 체그해게 되어 있음
+    if(blockLoc%10 >= 9)
+        return false;
+    else
+        return true;
+}
+
+function canLeft() {
+    // 수정되어야 함.
+    // 현재는 맨 바닥인지만 체그해게 되어 있음
+    if(blockLoc%10 <= 0)
         return false;
     else
         return true;
