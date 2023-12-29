@@ -5,6 +5,6 @@ function Block(x, y, color) {
 
     // 필요한 메소드 삽입하세요.
     this.draw = function () {
-        tds[x*10+y].style.backgroundColor = this.color;
+        tds[x*WIDTH+y].style.backgroundColor = this.color;
     }
 }
