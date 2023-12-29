@@ -1,16 +1,16 @@
-let WIDTH = 0;
-let HEIGHT = 0;
-let DOWN_SPEED = 300;
+var WIDTH = 0;
+var HEIGHT = 0;
+var DOWN_SPEED = 300;
 
-let tds = null;
-let blockLoc = 0;
-let timerID =  null;
-let blockArray = null;
+var tds = null;
+var blockLoc = 0;
+var timerID =  null;
+var blockArray = null;
 
-let blockColor = null;
-let currentColor = 0;
-let nextColor = 0;
-let previewBlock = null;
+var blockColor = null;
+var currentColor = 0;
+var nextColor = 0;
+var previewBlock = null;
 
 var isTab = false;
 
@@ -77,7 +77,9 @@ function setColor() {
 function play() {
     if (isTab || !moveDown()) {
         let i = Math.floor(blockLoc / WIDTH);
+
         if (i !== 0) {
+            checkScore();
             startNew();
         } else {
             overGame()
@@ -85,15 +87,98 @@ function play() {
     }
 }
 
-function checkBlock() {
-    let x = Math.floor(blockLoc / WIDTH);
-    let y = blockLoc % WIDTH;
-
+function checkScore() {
     // 가로 확인
+    let x = blockLoc % WIDTH;
+    let y = Math.floor(blockLoc / WIDTH);
 
-    // 세로 확인
+    let dx = [0,1,1,-1];
+    let dy = [1,0,1,1];
 
-    // 대각선 확인
+    for (let i = 0; i < 4; i++) {
+        let count = continuousBlockCount(x,y,dx[i],dy[i]);
+        if (count >= 3) {
+            removeBlock();
+            break;
+        }
+    }
+}
+
+function continuousBlockCount(x,y,dx,dy) {
+    let xStart = x;
+    let xEnd = x;
+    let yStart = y;
+    let yEnd = y;
+
+    function moveStart(location) {
+        xStart += dx * location;
+        yStart += dy * location;
+    }
+    function moveEnd(location) {
+        xEnd += dx * location;
+        yEnd += dy * location;
+    }
+
+    let equalsStartColor = true;
+    let equalsEndColor = true;
+
+    while (equalsStartColor || equalsEndColor) {
+        if (equalsStartColor) {
+            moveStart(-1);
+            equalsStartColor = checkBlockColor(xStart, yStart);
+            if (!equalsStartColor) {
+                moveStart(1);
+            } else if ((dx === 1 && xStart === 0) || (dy === 1 && yStart === 0)) {
+                equalsStartColor = false;
+            }
+        }
+
+        if (equalsEndColor) {
+            moveEnd(1);
+            equalsEndColor = checkBlockColor(xEnd, yEnd);
+            if (!equalsEndColor) {
+                moveEnd(-1);
+            } else if ((dx === 1 && xEnd === WIDTH - 1) || (dy === 1 && yEnd === WIDTH - 1)) {
+                equalsEndColor = false;
+            }
+        }
+    }
+    console.log("-- : (" + xStart + "," + yStart +") (" + xEnd + "," + yEnd + ")");
+    return Math.max(xEnd-xStart, yEnd-yStart) + 1;
+}
+
+function removeBlock() {
+    let dx = [0,0,1,-1,1,1,-1,-1];
+    let dy = [1,-1,0,0,1,-1,1,-1];
+
+    let x = blockLoc % WIDTH;
+    let y = Math.floor(blockLoc / WIDTH);
+
+    let blocks = [];
+    blocks.push({x,y});
+
+    while (blocks.length > 0) {
+        let value = blocks.shift();
+        for (let i = 0; i < 8; i++) {
+            let nx = value.x + dx[i];
+            let ny = value.y + dy[i];
+            if(checkBlockColor(nx,ny)) {
+                blockArray[ny][nx].remove();
+                blockArray[ny][nx] = null;
+
+                blocks.push({x:nx,y:ny});
+            }
+        }
+    }
+}
+
+function checkRound(x,y) {
+    return x >= 0 && y >= 0 && x < WIDTH && y < HEIGHT;
+}
+
+function checkBlockColor(x, y) {
+    return checkRound(x,y) && blockArray[y][x] != null
+        && blockArray[y][x].checkColor(currentColor);
 }
 
 function startNew() {
