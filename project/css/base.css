@@ -1,11 +1,23 @@
-
-table {
-    border : 1px solid blue;
-    border-collapse : collapse;
+body {
+    text-align: center; /* 텍스트를 수평으로 가운데 정렬합니다. */
 }
-td {
-    border : 1px solid lightgray;
-    width : 50px;
-    height : 50px;
-    padding : 0;
+
+#tetris_table {
+    margin: auto; /* 테이블을 수평으로 가운데 정렬합니다. */
+    border-collapse: collapse; /* 테이블 셀 간의 간격을 제거합니다. */
+}
+
+#tetris_table td, .tetris_td {
+    padding: 8px; /* 셀 내부의 여백을 지정합니다. */
+    text-align: center; /* 텍스트를 수평으로 가운데 정렬합니다. */
+    border: 1px solid #ddd; /* 테이블 셀에 테두리를 추가합니다. */
+}
+
+#tetris_table tr {
+    border: 1px solid #ddd; /* 테이블 행에 테두리를 추가합니다. */
+}
+
+.tetris_td {
+    width: 30px;
+    height: 30px;
 }
