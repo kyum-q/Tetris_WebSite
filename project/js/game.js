@@ -5,6 +5,8 @@ var DOWN_SPEED = 300;
 var tds = null;
 var blockLoc = 0;
 var blockColor = null;
+var currentColor = 0;
+var nextColor = 0;
 var timerID =  null;
 var blockArray = null;
 
@@ -21,11 +23,14 @@ function setInit(w, h, speed) {
     HEIGHT = h;
     DOWN_SPEED = speed;
 
+    blockColor = ["#E3A295", "#ECC225", "#9FBF82", "#939CD5", "#93C4D3"];
+    nextColor = blockColor[Math.floor(Math.random() * (blockColor.length))];
+
     setTetrisTable();
     setBlockArray();
 
     tds = document.getElementsByClassName("tetris_td");
-    tds[blockLoc].style.backgroundColor = "skyblue";
+    startNew();
 
     // timer set
     timerID = setInterval("play()", DOWN_SPEED);
@@ -55,6 +60,12 @@ function setBlockArray() {
     }
 }
 
+function setColor() {
+    currentColor = nextColor;
+    nextColor = blockColor[Math.floor(Math.random() * (blockColor.length))];
+    tds[blockLoc].style.backgroundColor = currentColor;
+}
+
 function play() {
     if (isTab || !moveDown()) {
         let i = Math.floor(blockLoc / WIDTH);
@@ -70,8 +81,8 @@ function startNew() {
     isTab = false;
 
     // new start
-    blockLoc = Math.floor(Math.random() * (WIDTH-1));
-    tds[blockLoc].style.backgroundColor = "skyblue";
+    blockLoc = Math.floor(Math.random() * (WIDTH));
+    setColor();
 }
 
 function overGame() {
