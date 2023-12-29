@@ -2,6 +2,31 @@ body {
     text-align: center; /* 텍스트를 수평으로 가운데 정렬합니다. */
 }
 
+#title {
+    display: inline-block;
+    position: relative;
+    left: 35px;
+}
+
+#preview {
+    position: relative;
+    left: 120px;
+    top: 10px;
+    display: inline-block;
+}
+
+#preview_block {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+}
+
+#preview_text {
+    font-size: 10px;
+    padding: 0;
+    margin: 0 0 3px;
+}
+
 #tetris_table {
     margin: auto; /* 테이블을 수평으로 가운데 정렬합니다. */
     border-collapse: collapse; /* 테이블 셀 간의 간격을 제거합니다. */
@@ -18,12 +43,6 @@ body {
 }
 
 .tetris_td {
-    width: 30px;
-    height: 30px;
-}
-
-#preview_block {
-    display: inline-block;
     width: 30px;
     height: 30px;
 }
