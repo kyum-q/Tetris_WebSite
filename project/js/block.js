@@ -8,7 +8,11 @@ function Block(x, y, color) {
         tds[x*WIDTH+y].style.backgroundColor = this.color;
     }
 
-    function checkColor(color) {
-        return color === color;
+    this.remove = function () {
+        tds[x*WIDTH+y].style.backgroundColor = "white";
+    }
+
+    this.checkColor = function (color) {
+        return this.color === color;
     }
 }
