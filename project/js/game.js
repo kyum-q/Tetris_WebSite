@@ -7,7 +7,14 @@ var blockLoc = 0;
 var blockColor = null;
 var timerID =  null;
 var blockArray = null;
+
+var isTab = false;
+
 window.focus();
+
+window.onload = function () {
+    setInit(10, 10, 300);
+}
 
 function setInit(w, h, speed) {
     WIDTH = w;
@@ -21,7 +28,7 @@ function setInit(w, h, speed) {
     tds[blockLoc].style.backgroundColor = "skyblue";
 
     // timer set
-    timerID = setInterval("moveDown()",DOWN_SPEED);
+    timerID = setInterval("play()", DOWN_SPEED);
 }
 
 function setTetrisTable() {
@@ -48,13 +55,22 @@ function setBlockArray() {
     }
 }
 
-window.onload = function () {
-    setInit(10, 10, 300);
+function play() {
+    if (isTab || !moveDown()) {
+        let i = Math.floor(blockLoc / WIDTH);
+        if (i !== 0) {
+            startNew();
+        } else {
+            overGame()
+        }
+    }
 }
 
 function startNew() {
+    isTab = false;
+
     // new start
-    blockLoc = 0;
+    blockLoc = Math.floor(Math.random() * (WIDTH-1));
     tds[blockLoc].style.backgroundColor = "skyblue";
 }
 

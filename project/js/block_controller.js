@@ -1,15 +1,17 @@
-
 window.onkeydown = function (e) {
-    switch (e.key) {
-        case "ArrowRight":
-            moveRight();
-            break;
-        case "ArrowLeft":
-            moveLeft();
-            break;
-        case "Tab":
-            moveFloor();
-            break;
+    if(!isTab) {
+        switch (e.key) {
+            case "ArrowRight":
+                moveRight();
+                break;
+            case "ArrowLeft":
+                moveLeft();
+                break;
+            case "Tab":
+                isTab = true;
+                moveFloor();
+                break;
+        }
     }
 
     // 현재 이벤트의 기본 동작 중단
@@ -40,25 +42,32 @@ function moveDown() {
         tds[blockLoc].style.backgroundColor = "white";
         blockLoc += WIDTH;
         tds[blockLoc].style.backgroundColor = "skyblue";
-    }
-    else {
-        // 더 이상 내려 갈 수 없는 경우, 블록 객체를 배열에 삽입함
-        let i = Math.floor(blockLoc/WIDTH);
-        let j = blockLoc%WIDTH;
 
-        blockArray[i][j] = new Block(i,j, "skyblue");
-        blockArray[i][j].draw();
-        startNew();
+        return true;
     }
+    // 더 이상 내려 갈 수 없는 경우, 블록 객체를 배열에 삽입함
+    let i = Math.floor(blockLoc / WIDTH);
+    let j = blockLoc % WIDTH;
+
+    blockArray[i][j] = new Block(i, j, "skyblue");
+    blockArray[i][j].draw();
+    return false;
 }
-
 
 function moveFloor() {
     while(canDown()) {
-        moveDown();
+        tds[blockLoc].style.backgroundColor = "white";
+        blockLoc += WIDTH;
+        tds[blockLoc].style.backgroundColor = "skyblue";
     }
-}
+    // 더 이상 내려 갈 수 없는 경우, 블록 객체를 배열에 삽입함
+    let i = Math.floor(blockLoc / WIDTH);
+    let j = blockLoc % WIDTH;
 
+    blockArray[i][j] = new Block(i, j, "skyblue");
+    blockArray[i][j].draw();
+    return false;
+}
 
 function canDown() {
     if(blockLoc >= WIDTH*(HEIGHT-1) || checkBlock(blockLoc/WIDTH+1, blockLoc%WIDTH))
