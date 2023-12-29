@@ -60,7 +60,6 @@ function moveFloor() {
         move(WIDTH);
     }
     draw();
-    return false;
 }
 
 function canDown() {

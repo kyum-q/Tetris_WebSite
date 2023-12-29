@@ -21,3 +21,9 @@ body {
     width: 30px;
     height: 30px;
 }
+
+#preview_block {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+}
