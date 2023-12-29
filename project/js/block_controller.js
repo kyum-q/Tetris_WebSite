@@ -18,54 +18,48 @@ window.onkeydown = function (e) {
     event.preventDefault();
 }
 
-function moveRight() {
-    // 수정되어야 함
-    if(canRight()) {
-        tds[blockLoc].style.backgroundColor = "white";
-        blockLoc += 1;
-        tds[blockLoc].style.backgroundColor = "skyblue";
-    }
+function move(move) {
+    tds[blockLoc].style.backgroundColor = "white";
+    blockLoc += move;
+    tds[blockLoc].style.backgroundColor = currentColor;
 }
 
-function moveLeft() {
-    // 수정되어야 함
-    if(canLeft()) {
-        tds[blockLoc].style.backgroundColor = "white";
-        blockLoc -= 1;
-        tds[blockLoc].style.backgroundColor = "skyblue";
-    }
-}
-
-function moveDown() {
-    // 수정되어야 함
-    if(canDown()) {
-        tds[blockLoc].style.backgroundColor = "white";
-        blockLoc += WIDTH;
-        tds[blockLoc].style.backgroundColor = "skyblue";
-
-        return true;
-    }
+function draw() {
     // 더 이상 내려 갈 수 없는 경우, 블록 객체를 배열에 삽입함
     let i = Math.floor(blockLoc / WIDTH);
     let j = blockLoc % WIDTH;
 
-    blockArray[i][j] = new Block(i, j, "skyblue");
+    blockArray[i][j] = new Block(i, j, currentColor);
     blockArray[i][j].draw();
+}
+
+
+function moveRight() {
+    if(canRight()) {
+        move(1);
+    }
+}
+
+function moveLeft() {
+    if(canLeft()) {
+        move(-1);
+    }
+}
+
+function moveDown() {
+    if(canDown()) {
+        move(WIDTH);
+        return true;
+    }
+    draw();
     return false;
 }
 
 function moveFloor() {
     while(canDown()) {
-        tds[blockLoc].style.backgroundColor = "white";
-        blockLoc += WIDTH;
-        tds[blockLoc].style.backgroundColor = "skyblue";
+        move(WIDTH);
     }
-    // 더 이상 내려 갈 수 없는 경우, 블록 객체를 배열에 삽입함
-    let i = Math.floor(blockLoc / WIDTH);
-    let j = blockLoc % WIDTH;
-
-    blockArray[i][j] = new Block(i, j, "skyblue");
-    blockArray[i][j].draw();
+    draw();
     return false;
 }
 
