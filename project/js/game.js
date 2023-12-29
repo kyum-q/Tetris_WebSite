@@ -1,14 +1,14 @@
-var WIDTH = 0;
-var HEIGHT = 0;
-var DOWN_SPEED = 300;
+let WIDTH = 0;
+let HEIGHT = 0;
+let DOWN_SPEED = 300;
 
-var tds = null;
-var blockLoc = 0;
+let tds = null;
+let blockLoc = 0;
 let timerID =  null;
-var blockArray = null;
+let blockArray = null;
 
 let blockColor = null;
-var currentColor = 0;
+let currentColor = 0;
 let nextColor = 0;
 let previewBlock = null;
 
@@ -83,6 +83,17 @@ function play() {
             overGame()
         }
     }
+}
+
+function checkBlock() {
+    let x = Math.floor(blockLoc / WIDTH);
+    let y = blockLoc % WIDTH;
+
+    // 가로 확인
+
+    // 세로 확인
+
+    // 대각선 확인
 }
 
 function startNew() {

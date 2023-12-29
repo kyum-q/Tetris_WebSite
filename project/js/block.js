@@ -7,4 +7,8 @@ function Block(x, y, color) {
     this.draw = function () {
         tds[x*WIDTH+y].style.backgroundColor = this.color;
     }
+
+    function checkColor(color) {
+        return color === color;
+    }
 }
