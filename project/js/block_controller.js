@@ -63,24 +63,15 @@ function moveFloor() {
 }
 
 function canDown() {
-    if(blockLoc >= WIDTH*(HEIGHT-1) || checkBlock(blockLoc/WIDTH+1, blockLoc%WIDTH))
-        return false;
-    else
-        return true;
+    return !(blockLoc >= WIDTH * (HEIGHT - 1) || checkBlock(blockLoc / WIDTH + 1, blockLoc % WIDTH));
 }
 
 function canRight() {
-    if(blockLoc%WIDTH >= WIDTH-1 || checkBlock(blockLoc/WIDTH, blockLoc%WIDTH+1))
-        return false;
-    else
-        return true;
+    return !(blockLoc % WIDTH >= WIDTH - 1 || checkBlock(blockLoc / WIDTH, blockLoc % WIDTH + 1));
 }
 
 function canLeft() {
-    if(blockLoc%WIDTH <= 0 || checkBlock(blockLoc/WIDTH, blockLoc%WIDTH-1))
-        return false;
-    else
-        return true;
+    return !(blockLoc % WIDTH <= 0 || checkBlock(blockLoc / WIDTH, blockLoc % WIDTH - 1));
 }
 
 function checkBlock(x, y) {
