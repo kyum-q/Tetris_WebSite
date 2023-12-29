@@ -1,5 +1,6 @@
 var WIDTH = 0;
 var HEIGHT = 0;
+var DOWN_SPEED = 300;
 
 var tds = null;
 var blockLoc = 0;
@@ -8,18 +9,19 @@ var timerID =  null;
 var blockArray = null;
 window.focus();
 
-function init(w, h) {
+function setInit(w, h, speed) {
     WIDTH = w;
     HEIGHT = h;
+    DOWN_SPEED = speed;
 
-    // 10x10 2차원 배열 만들기
-    // 블록 배열 생성 및 초기화
-    blockArray = new Array(HEIGHT);
-    for (let i = 0; i < HEIGHT; i++) {
-        blockArray[i] = new Array(WIDTH);
-        for (let j = 0; j < WIDTH; j++)
-            blockArray[i][j] = null; // 테스트 시에 3으로 초기화
-    }
+    setTetrisTable();
+    setBlockArray();
+
+    tds = document.getElementsByClassName("tetris_td");
+    tds[blockLoc].style.backgroundColor = "skyblue";
+
+    // timer set
+    timerID = setInterval("moveDown()",DOWN_SPEED);
 }
 
 function setTetrisTable() {
@@ -35,15 +37,19 @@ function setTetrisTable() {
     }
 }
 
+function setBlockArray() {
+    // 10x10 2차원 배열 만들기
+    // 블록 배열 생성 및 초기화
+    blockArray = new Array(HEIGHT);
+    for (let i = 0; i < HEIGHT; i++) {
+        blockArray[i] = new Array(WIDTH);
+        for (let j = 0; j < WIDTH; j++)
+            blockArray[i][j] = null; // 테스트 시에 3으로 초기화
+    }
+}
+
 window.onload = function () {
-    init(7, 5);
-    setTetrisTable();
-
-    tds = document.getElementsByClassName("tetris_td");
-    tds[blockLoc].style.backgroundColor = "skyblue";
-
-    // timer set
-    timerID = setInterval("moveDown()",300);
+    setInit(10, 10, 300);
 }
 
 function startNew() {
