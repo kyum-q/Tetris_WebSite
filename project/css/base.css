@@ -1,19 +1,10 @@
 @font-face{
     font-family:'DNFBitBitv2';
-    font-style:normal;font-weight:400;src:
-        url('//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf')
-        format('opentype')
-}
-
-@font-face {
-    font-family: 'NeoDunggeunmoPro-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/NeoDunggeunmoPro-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+    font-style:normal;font-weight:400;src:url('//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf') format('opentype')
 }
 
 body {
-    font-family: "DNFBitBitv2", serif;
+    font-family: "DNFBitBitv2";
     background: #2D366F;
     text-align: center; /* 텍스트를 수평으로 가운데 정렬합니다. */
     color: white;
@@ -112,3 +103,37 @@ header {
     font-size: 40px;
 }
 
+#level_up_alert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffdd00; /* 배경 색상 및 투명도 설정 */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+    display: none; /* 기본적으로는 숨겨둡니다. */
+}
+
+#level_up_alert p {
+    margin: 0;
+    font-size: 24px;
+    color: #ffffff;
+}
+
+#next_level_btn {
+    display: inline-block;
+    background: #ffffff;
+    color: #000000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    border-radius: 4px;
+    margin: 10px 0 0;
+    padding: 3px 15px;
+}
+
+#next_level_btn:hover {
+    cursor: pointer;
+}
