@@ -45,7 +45,6 @@ function fallBlock(block) {
         y++;
     }
 
-    console.log("1) " + x + ", " + y-1);
     blockArray[y-1][x] = new Block(x, y-1, color);
     blockArray[y-1][x].draw();
 }
