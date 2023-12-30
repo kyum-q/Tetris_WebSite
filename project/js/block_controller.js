@@ -29,7 +29,7 @@ function draw() {
     let i = Math.floor(blockLoc / WIDTH);
     let j = blockLoc % WIDTH;
 
-    blockArray[i][j] = new Block(i, j, currentColor);
+    blockArray[i][j] = new Block(j, i, currentColor);
     blockArray[i][j].draw();
 }
 
@@ -60,6 +60,24 @@ function moveFloor() {
         move(WIDTH);
     }
     draw();
+}
+
+function fallBlock(block) {
+    let x = block.x;
+    let y = block.y;
+    let color = block.color;
+
+    blockArray[y][x].remove();
+    blockArray[y][x] = null;
+
+    y++;
+    while(y < HEIGHT && blockArray[y][x] == null) {
+        y++;
+    }
+
+    console.log("1) " + x + ", " + y-1);
+    blockArray[y-1][x] = new Block(x, y-1, color);
+    blockArray[y-1][x].draw();
 }
 
 function canDown() {

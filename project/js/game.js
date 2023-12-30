@@ -99,6 +99,7 @@ function checkScore() {
         let count = continuousBlockCount(x,y,dx[i],dy[i]);
         if (count >= 3) {
             removeBlock();
+            fillEmptySpace();
             break;
         }
     }
@@ -143,7 +144,6 @@ function continuousBlockCount(x,y,dx,dy) {
             }
         }
     }
-    console.log("-- : (" + xStart + "," + yStart +") (" + xEnd + "," + yEnd + ")");
     return Math.max(xEnd-xStart, yEnd-yStart) + 1;
 }
 
@@ -168,6 +168,15 @@ function removeBlock() {
 
                 blocks.push({x:nx,y:ny});
             }
+        }
+    }
+}
+
+function fillEmptySpace() {
+    for (let i = HEIGHT-1; i >= 0; i--) {
+        for (let j = WIDTH-1; j >= 0; j--) {
+            if(blockArray[i][j] != null)
+                fallBlock(blockArray[i][j], j, i);
         }
     }
 }

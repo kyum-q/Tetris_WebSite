@@ -5,11 +5,11 @@ function Block(x, y, color) {
 
     // 필요한 메소드 삽입하세요.
     this.draw = function () {
-        tds[x*WIDTH+y].style.backgroundColor = this.color;
+        tds[y*WIDTH+x].style.backgroundColor = this.color;
     }
 
     this.remove = function () {
-        tds[x*WIDTH+y].style.backgroundColor = "white";
+        tds[y*WIDTH+x].style.backgroundColor = "white";
     }
 
     this.checkColor = function (color) {
