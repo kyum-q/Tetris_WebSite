@@ -9,18 +9,32 @@
     <script src="../js/block.js"></script>
 </head>
 <body>
-<h2 id="title">TETRIS GAME</h2>
-<section id="preview">
-    <p id="preview_text">NEXT BLOCK</p>
-    <span id="preview_block"></span>
-</section>
-<section id="score_section">
-    <span id="score_text">SCORE</span>
-    <span id="score">0</span>
-</section>
-<hr>
+<header>
+    <p id="title">TETRIS GAME</p>
+    <section id="score_section">
+        <p id="score_text">SCORE</p>
+        <h1 id="score">0</h1>
+    </section>
+    <section id="level_section">
+        <span id="level_text">Level.</span>
+        <span id="level">1 </span>
+    </section>
+</header>
 <main>
+    <section id="hold_preview">
+        <p class="preview_text">HOLD BLOCK</p>
+        <span class="preview_block_back">
+            <span id="hold_block"></span>
+        </span>
+    </section>
     <table id="tetris_table"></table>
+    <section id="next_preview">
+        <p class="preview_text">NEXT BLOCK</p>
+        <span class="preview_block_back">
+            <span id="preview_block"></span>
+        </span>
+    </section>
+
 </main>
 </body>
 </html>
