@@ -47,11 +47,11 @@ header {
 }
 
 #next_preview {
-    margin-left: 20px;
+    left: 20px;
 }
 
 #hold_preview {
-    margin-right: 20px;
+    right: 20px;
 }
 
 .preview_block_back {
