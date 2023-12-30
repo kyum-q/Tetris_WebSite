@@ -10,9 +10,12 @@ body {
 
 #preview {
     position: relative;
-    left: 120px;
-    top: 10px;
+    left: 115px;
+    top: 30px;
     display: inline-block;
+    background: #f3f3f3;
+    padding: 6px 9px;
+    border-radius: 10px;
 }
 
 #preview_block {
@@ -45,4 +48,19 @@ body {
 .tetris_td {
     width: 30px;
     height: 30px;
+}
+
+#score_section {
+    padding: 0;
+    margin: 0;
+    position: relative;
+    top: -10px;
+}
+
+#score_text {
+    font-size: 15px;
+}
+
+#score {
+    font-weight: bold;
 }
