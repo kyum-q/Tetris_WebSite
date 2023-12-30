@@ -1,6 +1,11 @@
 var WIDTH = 0;
 var HEIGHT = 0;
-var DOWN_SPEED = 300;
+
+var MAX_LEVEL = null;
+var DOWN_SPEED = null;
+var CLEAR_SCORE = null;
+
+var level = 0;
 
 var tds = null;
 var blockLoc = 0;
@@ -12,13 +17,17 @@ var currentColor = 0;
 var nextColor = 0;
 var previewBlock = null;
 
+var levelUpBtn = null
 var score = 0;
 var isTab = false;
 
 window.focus();
 
 window.onload = function () {
-    setInit(10, 10, 300);
+    let maxLevel = 4;
+    let speed = [300, 200, 100, 80];
+    let score = [300, 800, 1300, 2000];
+    setInit(10, 10, maxLevel, speed, score);
 }
 
 window.onkeydown = function (e) {
@@ -41,21 +50,32 @@ window.onkeydown = function (e) {
     event.preventDefault();
 }
 
-function setInit(w, h, speed) {
+function initLevelUpBtn() {
+    levelUpBtn = document.getElementById("next_level_btn");
+    levelUpBtn.addEventListener("click", nextLevel);
+}
+
+function setInit(w, h, maxLevel, speed, clearScore) {
     WIDTH = w;
     HEIGHT = h;
+
+    level = 0;
+    MAX_LEVEL = maxLevel;
     DOWN_SPEED = speed;
+    CLEAR_SCORE = clearScore;
+
     blockColor = ["#E3A295", "#ECC225", "#9FBF82", "#939CD5", "#93C4D3"];
 
     initTetrisTable();
     initBlockArray();
     initColor();
+    initLevelUpBtn();
 
     tds = document.getElementsByClassName("tetris_td");
     startNew();
 
     // timer set
-    timerID = setInterval("play()", DOWN_SPEED);
+    timerID = setInterval("play()", DOWN_SPEED[level]);
 }
 
 function initTetrisTable() {

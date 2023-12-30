@@ -9,16 +9,32 @@ function checkScore() {
     for (let i = 0; i < 4; i++) {
         let count = continuousBlockCount(x,y,dx[i],dy[i]);
         if (count >= 3) {
-            score += removeBlock() * 100;
-            changeScore();
+            plusScore(removeBlock());
             fillEmptySpace();
             break;
         }
     }
 }
 
-function changeScore() {
+function plusScore(plus) {
+    score += plus * 100;
     document.getElementById("score").innerHTML = score;
+    checkLevelUp();
+}
+
+function checkLevelUp() {
+    if(score >= CLEAR_SCORE[level]) {
+        levelUp();
+    }
+}
+
+function levelUp() {
+    level++;
+    document.getElementById("level").innerHTML = level+1;
+    document.getElementById("level_up_alert").style.display = "block";
+
+    clearInterval(timerID);
+    timerID = null;
 }
 
 function continuousBlockCount(x,y,dx,dy) {

@@ -7,6 +7,14 @@ function setColor() {
     previewBlock.style.backgroundColor = nextColor;
 }
 
+function nextLevel() {
+    timerID = setInterval("play()", DOWN_SPEED[level]);
+    document.getElementById("level_up_alert").style.display = "none";
+
+    if(level === MAX_LEVEL - 1)
+        gameClear();
+}
+
 function play() {
     if (isTab || !moveDown()) {
         let i = Math.floor(blockLoc / WIDTH);
@@ -48,5 +56,13 @@ function overGame() {
         clearInterval(timerID);
         timerID = null;
         alert("Game Over!!!!");
+    }
+}
+
+function gameClear() {
+    if(timerID != null) {
+        clearInterval(timerID);
+        timerID = null;
+        alert("Game Clear!!!!");
     }
 }
