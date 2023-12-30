@@ -17,14 +17,18 @@ var currentColor = 0;
 var nextColor = 0;
 var previewBlock = null;
 
-var levelUpBtn = null
+var levelUpBtn = null;
+var retryBtn = null;
+var gameEndAlert = null;
+var gameEndAlertText = null;
+
 var score = 0;
 var isTab = false;
 
 window.focus();
 
 window.onload = function () {
-    let maxLevel = 4;
+    let maxLevel = 1;
     let speed = [300, 200, 100, 80];
     let score = [300, 800, 1300, 2000];
     setInit(10, 10, maxLevel, speed, score);
@@ -50,9 +54,17 @@ window.onkeydown = function (e) {
     event.preventDefault();
 }
 
-function initLevelUpBtn() {
+function initAlert() {
+    gameEndAlert = document.getElementById("game_end_alert");
+    gameEndAlertText = document.getElementById("game_end_text");
     levelUpBtn = document.getElementById("next_level_btn");
     levelUpBtn.addEventListener("click", nextLevel);
+
+    retryBtn = document.getElementById("retry_btn");
+    retryBtn.addEventListener("click",  function() {
+        gameEndAlert.style.display = "none";
+        setInit(WIDTH, HEIGHT, MAX_LEVEL, DOWN_SPEED, CLEAR_SCORE);
+    });
 }
 
 function setInit(w, h, maxLevel, speed, clearScore) {
@@ -69,7 +81,7 @@ function setInit(w, h, maxLevel, speed, clearScore) {
     initTetrisTable();
     initBlockArray();
     initColor();
-    initLevelUpBtn();
+    initAlert();
 
     tds = document.getElementsByClassName("tetris_td");
     startNew();
@@ -80,6 +92,12 @@ function setInit(w, h, maxLevel, speed, clearScore) {
 
 function initTetrisTable() {
     const table = document.getElementById("tetris_table");
+
+    // table의 모든 자식 요소를 삭제
+    while (table.firstChild) {
+        table.removeChild(table.firstChild);
+    }
+
     for (let i = 0; i < HEIGHT; i++) {
         const tr = document.createElement('tr');
         for (let j = 0; j < WIDTH; j++) {

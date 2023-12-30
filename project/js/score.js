@@ -30,6 +30,12 @@ function checkLevelUp() {
 
 function levelUp() {
     level++;
+
+    if (level === MAX_LEVEL) {
+        gameClear();
+        return;
+    }
+
     document.getElementById("level").innerHTML = level+1;
     document.getElementById("level_up_alert").style.display = "block";
 

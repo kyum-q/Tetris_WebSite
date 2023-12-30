@@ -10,9 +10,6 @@ function setColor() {
 function nextLevel() {
     timerID = setInterval("play()", DOWN_SPEED[level]);
     document.getElementById("level_up_alert").style.display = "none";
-
-    if(level === MAX_LEVEL - 1)
-        gameClear();
 }
 
 function play() {
@@ -52,17 +49,19 @@ function startNew() {
 }
 
 function overGame() {
-    if(timerID != null) {
-        clearInterval(timerID);
-        timerID = null;
-        alert("Game Over!!!!");
-    }
+    gameEnd("GAME OVER");
 }
 
 function gameClear() {
+    gameEnd("GAME CLEAR");
+}
+
+function gameEnd(text) {
     if(timerID != null) {
         clearInterval(timerID);
         timerID = null;
-        alert("Game Clear!!!!");
     }
+
+    gameEndAlertText.innerText = text;
+    gameEndAlert.style.display = "block";
 }
