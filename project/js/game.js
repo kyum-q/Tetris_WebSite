@@ -12,6 +12,7 @@ var currentColor = 0;
 var nextColor = 0;
 var previewBlock = null;
 
+var score = 0;
 var isTab = false;
 
 window.focus();
@@ -98,11 +99,16 @@ function checkScore() {
     for (let i = 0; i < 4; i++) {
         let count = continuousBlockCount(x,y,dx[i],dy[i]);
         if (count >= 3) {
-            removeBlock();
+            score += removeBlock() * 100;
+            changeScore();
             fillEmptySpace();
             break;
         }
     }
+}
+
+function changeScore() {
+    document.getElementById("score").innerHTML = score;
 }
 
 function continuousBlockCount(x,y,dx,dy) {
@@ -148,6 +154,8 @@ function continuousBlockCount(x,y,dx,dy) {
 }
 
 function removeBlock() {
+    let count = 0;
+
     let dx = [0,0,1,-1,1,1,-1,-1];
     let dy = [1,-1,0,0,1,-1,1,-1];
 
@@ -165,11 +173,13 @@ function removeBlock() {
             if(checkBlockColor(nx,ny)) {
                 blockArray[ny][nx].remove();
                 blockArray[ny][nx] = null;
-
+                count++;
                 blocks.push({x:nx,y:ny});
             }
         }
     }
+
+    return count;
 }
 
 function fillEmptySpace() {
