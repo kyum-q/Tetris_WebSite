@@ -1,7 +1,11 @@
 function move(move) {
-    tds[blockLoc].style.backgroundColor = "white";
-    blockLoc += move;
-    tds[blockLoc].style.backgroundColor = currentColor;
+    if(!isMove) {
+        isMove = true;
+        tds[blockLoc].style.backgroundColor = "white";
+        blockLoc += move;
+        tds[blockLoc].style.backgroundColor = currentColor;
+        isMove = false;
+    }
 }
 
 function moveRight() {
@@ -26,13 +30,17 @@ function moveDown() {
 }
 
 function moveFloor() {
+    isTab = true;
     while(canDown()) {
         move(WIDTH);
     }
     makeBlock();
+    isTab = false;
 }
 
 function fallBlock(block) {
+    isMove = true;
+
     let x = block.x;
     let y = block.y;
     let color = block.color;
@@ -47,4 +55,6 @@ function fallBlock(block) {
 
     blockArray[y-1][x] = new Block(x, y-1, color);
     blockArray[y-1][x].draw();
+
+    isMove = false;
 }
