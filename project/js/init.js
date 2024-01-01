@@ -13,9 +13,11 @@ var timerID =  null;
 var blockArray = null;
 
 var blockColor = null;
-var currentColor = 0;
-var nextColor = 0;
+var currentColor = null;
+var nextColor = null;
+var holdColor = null;
 var previewBlock = null;
+var holdBlock = null;
 
 var levelUpBtn = null;
 var retryBtn = null;
@@ -24,18 +26,19 @@ var gameEndAlertText = null;
 
 var score = 0;
 var isTab = false;
+var isHold = false;
+var isMove = false;
+
+var levelUpAudio = null;
+var blockRemoveAudio = null;
+var bgm = null;
 
 window.focus();
 
-window.onload = function () {
-    let maxLevel = 1;
-    let speed = [300, 200, 100, 80];
-    let score = [300, 800, 1300, 2000];
-    setInit(10, 10, maxLevel, speed, score);
-}
+window.onload = gameStart;
 
 window.onkeydown = function (e) {
-    if(!isTab) {
+     if(!isTab) {
         switch (e.key) {
             case "ArrowRight":
                 moveRight();
@@ -44,14 +47,31 @@ window.onkeydown = function (e) {
                 moveLeft();
                 break;
             case "Tab":
-                isTab = true;
                 moveFloor();
+                break;
+            case "Shift":
+                holdingBlock();
+                break;
+            case " ":
+            case "Enter":
+                // 버튼 처리 고려
                 break;
         }
     }
 
     // 현재 이벤트의 기본 동작 중단
     event.preventDefault();
+}
+
+function gameStart() {
+    let maxLevel = 4;
+    let speed = [300, 200, 100, 80];
+    let score = [800, 800, 1300, 2000];
+    let audio1 = new Audio('../audio/MP_스테이지 클리어(레트로).mp3');
+    let audio2 = new Audio('../audio/MP_Tiny Button Push.mp3');
+    let bgm = new Audio('../audio/MP_고양이 장난감.mp3');
+
+    setInit(10, 10, maxLevel, speed, score, audio1, audio2, bgm);
 }
 
 function initAlert() {
@@ -63,18 +83,28 @@ function initAlert() {
     retryBtn = document.getElementById("retry_btn");
     retryBtn.addEventListener("click",  function() {
         gameEndAlert.style.display = "none";
-        setInit(WIDTH, HEIGHT, MAX_LEVEL, DOWN_SPEED, CLEAR_SCORE);
+        gameStart();
     });
+
+    let gameStartBtn = document.getElementById("game_start_btn");
+    gameStartBtn.addEventListener("click", playGame);
 }
 
-function setInit(w, h, maxLevel, speed, clearScore) {
+function setInit(w, h, maxLevel, speed, clearScore, levelAudio, blockAudio, newBgm) {
     WIDTH = w;
     HEIGHT = h;
 
-    level = 0;
     MAX_LEVEL = maxLevel;
     DOWN_SPEED = speed;
     CLEAR_SCORE = clearScore;
+    levelUpAudio = levelAudio;
+    blockRemoveAudio = blockAudio;
+    bgm = newBgm;
+
+    level = 0;
+    isTab = false;
+    isHold = false;
+    isMove = false;
 
     blockColor = ["#E3A295", "#ECC225", "#9FBF82", "#939CD5", "#93C4D3"];
 
@@ -84,10 +114,6 @@ function setInit(w, h, maxLevel, speed, clearScore) {
     initAlert();
 
     tds = document.getElementsByClassName("tetris_td");
-    startNew();
-
-    // timer set
-    timerID = setInterval("play()", DOWN_SPEED[level]);
 }
 
 function initTetrisTable() {
@@ -123,4 +149,5 @@ function initBlockArray() {
 function initColor() {
     nextColor = blockColor[Math.floor(Math.random() * (blockColor.length))];
     previewBlock = document.getElementById("preview_block");
+    holdBlock = document.getElementById("hold_block");
 }
