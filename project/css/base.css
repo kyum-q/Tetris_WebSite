@@ -103,7 +103,7 @@ header {
     font-size: 40px;
 }
 
-#level_up_alert, #game_end_alert {
+#level_up_alert, #game_end_alert, #game_start {
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -117,6 +117,9 @@ header {
     display: none; /* 기본적으로는 숨겨둡니다. */
 }
 
+#game_start {
+    display: block;
+}
 
 #level_up_alert p, #game_end_text {
     margin: 0;
@@ -134,6 +137,12 @@ header {
     padding: 3px 15px;
 }
 
-#next_level_btn:hover, #retry_btn:hover {
+#game_start_btn {
+    margin: 0;
+    font-size: 40px;
+    color: #000000;
+}
+
+#next_level_btn:hover, #retry_btn:hover, #game_start_btn:hover {
     cursor: pointer;
 }
