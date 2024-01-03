@@ -1,6 +1,4 @@
 function checkScore() {
-
-    // 가로 확인
     let x = blockLoc % WIDTH;
     let y = Math.floor(blockLoc / WIDTH);
 
@@ -25,7 +23,7 @@ function plusScore(plus) {
 
 function checkLevelUp() {
     if(score >= SPEED_UP_SCORE*(level)) {
-        levelUp();
+            levelUp();
     }
 }
 
@@ -45,8 +43,18 @@ function levelUp() {
         levelUpAudio.play();
 
     document.getElementById("level").innerHTML = level;
-
+    showLevelUpAlert();
 }
+
+function showLevelUpAlert() {
+    let section = document.getElementById("level_up_alert");
+    section.style.display = "block";
+
+    setTimeout(function () {
+        section.style.display = "none";
+    }, 3000);
+}
+
 
 function continuousBlockCount(x,y,dx,dy) {
     let xStart = x;
