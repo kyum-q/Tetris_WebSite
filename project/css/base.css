@@ -1,6 +1,8 @@
-@font-face{
-    font-family:'DNFBitBitv2';
-    font-style:normal;font-weight:400;src:url('//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf') format('opentype')
+@font-face {
+    font-family: 'DNFBitBitv2';
+    font-style: normal;
+    font-weight: 400;
+    src: url('//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf') format('opentype')
 }
 
 body {
@@ -29,16 +31,23 @@ header {
     margin-bottom: 20px;
 }
 
+#preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
 #hold_preview, #next_preview {
     display: inline-block;
     background: #ffffff;
     border-radius: 3px;
     position: relative;
-    bottom: 300px;
+    bottom: 100px;
 }
 
 #next_preview {
-    left: 20px;
+    left: 20px
 }
 
 #hold_preview {
@@ -66,6 +75,7 @@ header {
     font-size: 10px;
     padding: 0;
     margin: 8px 10px;
+    width: auto;
 }
 
 #tetris_table, #score_section {
@@ -92,7 +102,7 @@ header {
     height: 30px;
 }
 
-#score_section, #score, #score_text  {
+#score_section, #score, #score_text {
     padding: 0;
     margin: 0;
 }
@@ -103,22 +113,46 @@ header {
     font-size: 40px;
 }
 
-#level_up_alert, #game_end_alert, #game_start {
+#game_end_alert, #game_start, #level_up_alert {
     justify-content: center;
     align-items: center;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #ffdd00; /* 배경 색상 및 투명도 설정 */
+    background: linear-gradient(45deg, #ffd699, #ff94c2);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
     display: none; /* 기본적으로는 숨겨둡니다. */
 }
 
-#game_start {
-    display: block;
+#level_up_alert {
+    color: white;
+    top: 30%;
+    transform: scale(0);
+    animation: fadeInOut 1s ease-in-out, scaleRotate 1.5s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleRotate {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
 }
 
 #level_up_alert p, #game_end_text {
@@ -137,12 +171,21 @@ header {
     padding: 3px 15px;
 }
 
-#game_start_btn {
-    margin: 0;
-    font-size: 40px;
-    color: #000000;
-}
-
 #next_level_btn:hover, #retry_btn:hover, #game_start_btn:hover {
     cursor: pointer;
+}
+
+#game_start {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+#game_start:hover {
+    color: #000000; /* 호버 시에 텍스트 색상을 흰색으로 변경 */
 }
