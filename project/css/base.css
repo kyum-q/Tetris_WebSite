@@ -171,8 +171,17 @@ header {
     padding: 3px 15px;
 }
 
-#next_level_btn:hover, #retry_btn:hover, #game_start_btn:hover {
+#retry_btn:hover, #game_start_btn:hover {
     cursor: pointer;
+}
+
+#retry_btn:hover {
+    color: #ff94c2;
+    background: black;
+}
+
+#game_start:hover {
+    color: #000000; /* 호버 시에 텍스트 색상을 흰색으로 변경 */
 }
 
 #game_start {
@@ -186,6 +195,3 @@ header {
     cursor: pointer;
 }
 
-#game_start:hover {
-    color: #000000; /* 호버 시에 텍스트 색상을 흰색으로 변경 */
-}
