@@ -7,15 +7,6 @@ function setColor() {
     previewBlock.style.backgroundColor = nextColor;
 }
 
-function nextLevel() {
-    isMove = false;
-
-    timerID = setInterval("blockMovement()", DOWN_SPEED[level]);
-    document.getElementById("level_up_alert").style.display = "none";
-
-    startBGM();
-}
-
 function playGame() {
     let gameStart = document.getElementById("game_start");
     gameStart.style.display = "none";
@@ -24,11 +15,10 @@ function playGame() {
     startBGM();
 
     // timer set
-    timerID = setInterval("blockMovement()", DOWN_SPEED[level]);
+    timerID = setInterval("blockMovement()", downSpeed);
 }
 
 function blockMovement() {
-
     if (isTab || !moveDown()) {
         let i = Math.floor(blockLoc / WIDTH);
 
@@ -66,10 +56,6 @@ function startNew() {
 
 function overGame() {
     gameEnd("GAME OVER");
-}
-
-function gameClear() {
-    gameEnd("GAME CLEAR");
 }
 
 function gameEnd(text) {
@@ -115,12 +101,16 @@ function holdingBlock() {
         holdBlock.style.backgroundColor = holdColor;
     }
     else {
-        nextColor = holdColor;
-        holdColor = "white";
-        holdBlock.style.backgroundColor = 'transparent';
-        isHold = false;
+        releaseBlock();
     }
     startNew();
 
     isMove = false;
+}
+
+function releaseBlock() {
+    nextColor = holdColor;
+    holdColor = "white";
+    holdBlock.style.backgroundColor = 'transparent';
+    isHold = false;
 }

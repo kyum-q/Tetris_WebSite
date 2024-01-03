@@ -30,12 +30,10 @@ function moveDown() {
 }
 
 function moveFloor() {
-    isTab = true;
     while(canDown()) {
         move(WIDTH);
     }
     makeBlock();
-    isTab = false;
 }
 
 function fallBlock(block) {

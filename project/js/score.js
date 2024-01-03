@@ -1,4 +1,5 @@
 function checkScore() {
+
     // 가로 확인
     let x = blockLoc % WIDTH;
     let y = Math.floor(blockLoc / WIDTH);
@@ -23,31 +24,28 @@ function plusScore(plus) {
 }
 
 function checkLevelUp() {
-    if(score >= CLEAR_SCORE[level]) {
+    if(score >= SPEED_UP_SCORE*(level)) {
         levelUp();
     }
 }
 
 function levelUp() {
-    isMove = true;
-
-    clearInterval(timerID);
-    timerID = null;
-
     level++;
-    if (level === MAX_LEVEL) {
-        gameClear();
-        return;
+
+    if(timerID != null) {
+        clearInterval(timerID);
     }
+
+    if(downSpeed - SPEED_UP > 80) {
+        downSpeed -= SPEED_UP;
+    }
+    timerID = setInterval("blockMovement()", downSpeed);
 
     if(levelUpAudio != null)
         levelUpAudio.play();
 
-    document.getElementById("level").innerHTML = level+1;
-    document.getElementById("level_up_alert").style.display = "block";
+    document.getElementById("level").innerHTML = level;
 
-    if(bgm != null)
-        bgm.pause();
 }
 
 function continuousBlockCount(x,y,dx,dy) {

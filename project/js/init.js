@@ -1,11 +1,11 @@
 var WIDTH = 0;
 var HEIGHT = 0;
 
-var MAX_LEVEL = null;
-var DOWN_SPEED = null;
-var CLEAR_SCORE = null;
+var SPEED_UP = null;
+var SPEED_UP_SCORE = null;
 
-var level = 0;
+var downSpeed = null;
+var level = 1;
 
 var tds = null;
 var blockLoc = 0;
@@ -19,7 +19,6 @@ var holdColor = null;
 var previewBlock = null;
 var holdBlock = null;
 
-var levelUpBtn = null;
 var retryBtn = null;
 var gameEndAlert = null;
 var gameEndAlertText = null;
@@ -47,6 +46,7 @@ window.onkeydown = function (e) {
                 moveLeft();
                 break;
             case "Tab":
+                isTab = true;
                 moveFloor();
                 break;
             case "Shift":
@@ -64,44 +64,44 @@ window.onkeydown = function (e) {
 }
 
 function gameStart() {
-    let maxLevel = 4;
-    let speed = [300, 200, 100, 80];
-    let score = [800, 800, 1300, 2000];
+    let speed = 300;
+    let speedIncrease = 50;
+    let speedUpScore = 400;
     let audio1 = new Audio('../audio/MP_스테이지 클리어(레트로).mp3');
     let audio2 = new Audio('../audio/MP_Tiny Button Push.mp3');
     let bgm = new Audio('../audio/MP_고양이 장난감.mp3');
 
-    setInit(10, 10, maxLevel, speed, score, audio1, audio2, bgm);
+    setInit(10, 10, speed, speedIncrease, speedUpScore, audio1, audio2, bgm);
 }
 
 function initAlert() {
     gameEndAlert = document.getElementById("game_end_alert");
     gameEndAlertText = document.getElementById("game_end_text");
-    levelUpBtn = document.getElementById("next_level_btn");
-    levelUpBtn.addEventListener("click", nextLevel);
 
     retryBtn = document.getElementById("retry_btn");
     retryBtn.addEventListener("click",  function() {
         gameEndAlert.style.display = "none";
         gameStart();
+        playGame();
     });
 
     let gameStartBtn = document.getElementById("game_start_btn");
     gameStartBtn.addEventListener("click", playGame);
 }
 
-function setInit(w, h, maxLevel, speed, clearScore, levelAudio, blockAudio, newBgm) {
+function setInit(w, h, speed, speedIncrease, speedUpScore, levelAudio, blockAudio, newBgm) {
     WIDTH = w;
     HEIGHT = h;
 
-    MAX_LEVEL = maxLevel;
-    DOWN_SPEED = speed;
-    CLEAR_SCORE = clearScore;
+    downSpeed = speed;
+    SPEED_UP = speedIncrease;
+    SPEED_UP_SCORE = speedUpScore;
+
     levelUpAudio = levelAudio;
     blockRemoveAudio = blockAudio;
     bgm = newBgm;
 
-    level = 0;
+    level = 1;
     isTab = false;
     isHold = false;
     isMove = false;
