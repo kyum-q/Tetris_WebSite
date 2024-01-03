@@ -101,7 +101,11 @@ function setInit(w, h, speed, speedIncrease, speedUpScore, levelAudio, blockAudi
     blockRemoveAudio = blockAudio;
     bgm = newBgm;
 
+    score = 0;
+    document.getElementById("score").innerHTML = score;
     level = 1;
+    document.getElementById("level").innerHTML = level;
+
     isTab = false;
     isHold = false;
     isMove = false;
